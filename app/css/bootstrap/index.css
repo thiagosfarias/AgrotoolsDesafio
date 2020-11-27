@@ -25,7 +25,8 @@ body {
 }
 
 .op_name{
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin-left: 2rem;
+    margin-top: 2rem;
     font-weight: inherit;
 }
 
@@ -89,8 +90,8 @@ a .nav-link{
 #questionarios-box{
     margin-top: 3rem;
     border-style: solid;
-    border-width: 0.03rem;
-    border-color: gray;
+    border-width: 0.05rem;
+    border-color:  #bbb3be;
     width: 20rem;
     border-radius: 1rem;
     background-color: ivory;
@@ -113,4 +114,12 @@ a .nav-link{
     margin-top: 1rem;
     margin-left: 1rem;
     margin-bottom: 1rem;
+}
+
+
+.form-control {
+    border-color: #bbb3be;
+    border-width: 0.07rem;
+    height: 3rem;
+    width: 65%;
 }

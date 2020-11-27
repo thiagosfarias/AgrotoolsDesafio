@@ -7,6 +7,8 @@
     <link href="./css/bootstrap/bootstrap.css" rel="stylesheet">
     <link href="./css/bootstrap/index.css" rel="stylesheet">
     <script src="assets/jquery-2.1.3.min.js"></script>
+
+
     <title>Agrotools</title>
 </head>
 <body>
@@ -43,12 +45,12 @@
         </a>
       </li>
       <li class="nav-item d-flex flex-row">
-        <a class="nav-link flex-column" href="#">
+        <a class="nav-link flex-column" href="#" id="myFiles-quest">
           <img id="myFile_icon" src="./assets/img/myFile_icon.png" class="img fluid flex-column icons" alt="">
           <span class="text-desktop">meus questionários</span>
         </a>
       </li>
-      <li class="nav-item d-flex flex-row">
+      <li class="nav-item d-flex flex-row" id="novo-quest">
         <a class="nav-link flex-column" href="#">
           <img id="novo_icon" src="./assets/img/novo_icon.png" class="img fluid flex-column icons" alt="">
           <span class="text-desktop">criar novo questionário</span>
@@ -58,35 +60,52 @@
   </div>
   
 
-  <div id="option_field" class="d-flex flex-column ml-5 mt-4">
-    <div id="option_selected">
-      <h1 class="op_name">OPCAO DEFAULT</h1>
-      
+  <div id="option_field" class="ml-5 mt-4">
+    
+    <h1 class="op_name">OPCAO DEFAULT</h1>
 
-      <div id="questionarios-box" class="d-flex flex-row">
-        <div class="body-box d-flex flex-row">
-          <h5 clas="flex-column">Titulo do questionario</h5>
-        <div class="flag"></div>
-        <a class="expand_questionario flex-column">
-          <img class="box-icon" src="./assets/img/next_icon.png" alt="">
-        </a>
-        </div>   
-      </div>
+    <div id="option_selected">
+
+    <div id="questionarios-box" class="d-flex flex-row">
+
+          <div id="body-box" class="body-box d-flex flex-row">
+            <h5 clas="flex-column" id="tittle">Titulo do questionario</h5>
+            <h6 id="user">User</h6>
+          <div class="flag">
+  
+          </div>
+          <a class="expand_questionario flex-row">
+            <img class="box-icon" src="./assets/img/next_icon.png" alt="">
+          </a> 
+        </div>
 
 
     </div>
+
   </div>
+
+
 
 </div>
 
 
 
-<footer>
-  <h1>desenvolvido por thiago</h1>
-</footer>
 
-<script type="text/javascript" src="./js/index.js"></script>
+
+
+
+
+
+
+
 
 </body>
+
+<script src="./assets/system.js"></script>
+    <script>
+        System.defaultJSExtensions = true;
+        System.import('js/app.js').catch(err => console.error(err));
+        System.import('js/index.js').catch(err => console.error(err));
+    </script>
 
 </html>
