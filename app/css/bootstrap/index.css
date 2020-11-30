@@ -13,7 +13,8 @@ body {
 
 #option_field{
     background-color: #E5DBE9;
-    width: 130rem;
+    width: 100rem;
+    height: 100%;
     border-radius: 0.7rem 0rem 0rem 0.7em;
     margin-left: 3rem;
 }
@@ -34,6 +35,7 @@ body {
     background-color: #FFFFFF;
     border-radius: 0rem 0.7rem 0.7rem 0em;
     width: 22rem;
+    position: relative;
 }
 
 #logo img{

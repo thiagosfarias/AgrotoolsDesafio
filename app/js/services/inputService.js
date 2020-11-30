@@ -1,4 +1,5 @@
 const Perguntas = require("../models/perguntas")
+const Respostas = require("../models/respostas")
 const Usuario = require("../models/usuario")
 
 class InputService {
@@ -26,8 +27,13 @@ class InputService {
     }
     
     inputRespostas(){
-        
-        $()
+        event.preventDefault()
+        this.user = this.inputUser()
+        this.respostas = new Respostas(this.user)
+        $('input[name="respostas[]"]').map((index, resposta) => {
+            this.respostas.respostas.push($(resposta).val())
+        })
+        return this.respostas
     }
 
 } module.exports = InputService

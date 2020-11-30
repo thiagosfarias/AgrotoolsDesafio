@@ -1,4 +1,3 @@
-
 const QuestionarioControl = require('./questionarioController');
 const questionarioControl = new QuestionarioControl();
 
@@ -11,9 +10,17 @@ $(document).ready(()=>{
 })
 
 $(document).ready(()=>{
-  $('#quest-pend').click(()=>{
+  $('#questionarios-disponiveis').click(()=>{
     $('.op_name').html('<h1 class="op_name">Questionários</h1>')
     questionarioControl.listaQuestionarios()
+  })
+})
+
+
+$(document).ready(()=>{
+  $('#questionarios-respondidos').click(()=>{
+    $('.op_name').html('<h1 class="op_name">Questionários Respondidos</h1>')
+    questionarioControl.listaQuestionariosRespondidos()
   })
 })
 
@@ -25,20 +32,34 @@ $(document).on('submit', '#quest-form', () => {
 
 $(document).ready(()=>{
   $(document).on('click', '#myFiles-quest', () => {
-    questionarioControl.listaQuestionariosHttp()
+    let questionariosGET = questionarioControl.listaQuestionariosHttp()
+    questionariosGET.forEach((questionarioGET) => {
+      questionarioControl.verQuestionario(questionarioGET)
+    })
   })
 })
 
 $(document).ready(()=>{
   $(document).on('click', '#viewQuestionario', (e) => {
+    $('.op_name').html('<h1 class="op_name">Questionários n.'+e.target.id+'</h1>')
     e.preventDefault()
     questionarioControl.verQuestionario(e.target.id)
-  })
-})
+  })})
 
+  $(document).ready(()=>{
+    $(document).on('click', '#viewQuestionarioRespondido', (e) => {
+      $('.op_name').html('<h1 class="op_name">Questionário Respondido n.'+e.target.id+'</h1>')
+      e.preventDefault()
+      questionarioControl.verQuestionarioRespondido(e.target.id)
+    })})
 
-
-
+$(document).ready((e) => {
+  $(document).on('click', '#responderQuestionario', (e) =>{
+    e.preventDefault()
+    console.log(e.target.id)
+    let id = e.target.id
+    questionarioControl.responderQuestionario(id)
+  })})
 
 
 

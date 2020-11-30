@@ -8,7 +8,11 @@ class Questionario {
         this.titulo = titulo
         this.perguntas = perguntas
         this.respostas = []
+        this.respondido = false
+        this.id = 0
     }
+
+
 
     
 

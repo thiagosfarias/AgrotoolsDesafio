@@ -1,15 +1,15 @@
 const MesageView = require("./mesageView");
 const LocalizacaoService = require("../services/localizacaoService")
-const questControl = require("../controllers/questionarioController");
+const QuestionariosController = require('../controllers/questionarioController')
 
-let index=0
+
 
 class QuestionarioView {
  
     constructor(){
         this.mesageView = new MesageView()
         this.localizacaoService = new LocalizacaoService()
-        
+
         
     }
 
@@ -20,7 +20,7 @@ class QuestionarioView {
         return   $('#option_selected').html(`
         
         <form id="quest-form">
-        <div id = "criar-quest" class="form-group">
+        <div class="form-group">
             <h5>Titulo</h5>
             <input type="tittle" class="form-control"  id="tittle-input" placeholder="digite o titulo..."  required>
         </div>
@@ -74,7 +74,71 @@ class QuestionarioView {
     )
   }
 
+  exibirQuestionarioRespondido(questionario){
+      return $('#option_selected').html(`
+    
+
+      <form class="d-flex flex-column">
+      <div class="form-group flex-">
+        <h4>Usuário:<h4/>
+        <h5>${questionario.user.user}</h5>
+    </div>
+    <div class="form-group flex-">
+    <h4>Titulo:<h4/>
+    <h5>${questionario.titulo}</h5>
+  </div>
+    <div class="form-group">
+      <h4>(Latitude e Longitude)<h4/>
+      <h2>${questionario.user.latitude}</h2><br>
+      <h2>${questionario.user.longitude}</h2>
+    </div>
+    <div class="form-group">
+        <h4>Data de cadastro<h4/>
+        <h5>${questionario.user.data}</h5>
+    </div>
+      ${questionario.perguntas.enunciados.map( (enunciado, index) => 
+          
+          `
+  
+      <div class="form-group" name="perguntas[]">
+          <h5 class="enunciado">n. ${index} - ${enunciado}</h5>
+          `
+        
+      )}
+
+      <div id="info-resposta">
+
+      ${questionario.respostas.map((resposta, index) => 
+        `
+        <div class="info-usuario">
+            <p>Usuario: ${resposta.user.user}</p>
+            <p>Data: ${resposta.user.data}</p>
+            <p>Latitude:${resposta.user.latitude}</p>
+            <p>Longitude:${resposta.user.longitude}</p>
+        </div>
+        ${
+            respostas.map((textoResposta, index) => 
+            `
+            <div class="lista-respostas" name="respostas[]">
+            <h5 class="resposta">n. ${index} - ${textoResposta}</h5>
+            `
+            ).join('')
+        }
+
+        `
+      )}
+      </div>
+
+
+    </form>
+  
+  `)
+  }
+
+  
+
   exibirQuestionario(questionario){
+    
     return $('#option_selected').html(`
     
 
@@ -97,9 +161,34 @@ class QuestionarioView {
           <h5>${questionario.user.data}</h5>
       </div>
       <div></div>
-        <form>
+        <form id="resposta-form">
+        <div class="form-group">
+            <h5>User</h5>
+            <input type="user" class="form-control" id="user-input"placeholder="digite seu user..."  required>
+        </div>
+        <div class="form-group">
+            <h5>Geolocalização</h5>
+            <button id="btn-geolocalizacao" class="btn btn-primary ml-3" type="button" required>Fornecer</button>
+            ${
+
+                $(document).on('click', '#btn-geolocalizacao', (e) => {
+                    e.preventDefault()
+                   this.localizacaoService.retornageolocalizacao()
+                })
+
+            }
+            <p id="latitude">
+            </p>
+            <p id="longitude">
+            </p>
+
+        </div>
+        <div class="form-group">
+            <h5>Data</h5>
+            <input type="date" class="form-control" id="date-input"   required>
+        </div>
         ${questionario.perguntas.enunciados.map( (enunciado, index) => 
-        
+            
             `
     
         <div class="form-group" name="respostas[]">
@@ -110,13 +199,16 @@ class QuestionarioView {
             `
             
         )}
-        <button class="btn btn-primary" type=submit>Responder</button>    
+
+        <a class="btn btn-primary" id="responderQuestionario"><p id="${questionario.id}">Responder</p></a>
         </form>
 
       </form>
     
     `)
 }
+
+
 
   listaQuestionarios(questionarios){
 
@@ -137,14 +229,14 @@ class QuestionarioView {
          <div id="body-box" class="body-box d-flex flex-row">
              <h5 clas="flex-column ml-2" name=titulo[]>${questionario.titulo}</h5>
              <h6  class="flex-row ml-2" name=usuario[]>${questionario.user.user}</h6>
-             <h6  class="flex-row ml-2" name="id">${index}</h6>
+             <h6  class="flex-row ml-2" name="id">${questionario.id}</h6>
 
 
          <div class="flag">
          </div>
 
-         <a class="expand_questionario flex-row ml-2"  href="#" name="questionario-${index}" id="viewQuestionario">
-             <img class="box-icon" id="${index}" src="./assets/img/next_icon.png" alt="">
+         <a class="expand_questionario flex-row ml-2"  href="#" name="questionario-${questionario.id}" id="viewQuestionario">
+             <img class="box-icon" id="${questionario.id}" src="./assets/img/next_icon.png" alt="">
          </a>
          </div>
              
@@ -157,8 +249,38 @@ class QuestionarioView {
                 
     }
 
-    responderQuestionario(){
+    listaQuestionariosRespondidos(questionarios){
 
+        return $('#option_selected').html( `
+            
+    
+             ${questionarios.questionarios.map( (questionario) =>  
+
+                 `
+                 
+
+         <div id="questionarios-box">
+         <div id="body-box" class="body-box d-flex flex-row">
+             <h5 clas="flex-column ml-2" name=titulo[]>${questionario.titulo}</h5>
+             <h6  class="flex-row ml-2" name=usuario[]>${questionario.user.user}</h6>
+             <h6  class="flex-row ml-2" name="id">${questionario.id}</h6>
+
+
+         <div class="flag">
+         </div>
+
+         <a class="expand_questionario flex-row ml-2"  href="#" name="questionario-${questionario.id}" id="viewQuestionarioRespondido">
+             <img class="box-icon" id="${questionario.id}" src="./assets/img/next_icon.png" alt="">
+         </a>
+         </div>
+             
+             
+     
+                 
+             `).join('')}            
+                 
+         `);
+                
     }
 
 

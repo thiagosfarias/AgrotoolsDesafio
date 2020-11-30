@@ -16,6 +16,18 @@ class HttpRequests {
                     console.log()
                 })
     }
+
+    async patchResposta(questionario){
+        return $.ajax({
+            url: link+'questionario/'+questionario.id,
+            type : 'PATCH',
+            dataType : 'json',
+            data: questionario.respostas,
+            crossDomain: true
+        }).done((res, status) => {
+            console.log(res, status)
+        }).fail(err => console.error(err))
+    }
 }
 
 module.exports = HttpRequests

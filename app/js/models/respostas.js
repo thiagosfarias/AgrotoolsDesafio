@@ -1,4 +1,4 @@
-class Resposta {
+class Respostas {
     constructor(user){
         this.user = user
         this.respostas = []
@@ -7,4 +7,4 @@ class Resposta {
     
 }
 
-module.exports = Resposta
+module.exports = Respostas
