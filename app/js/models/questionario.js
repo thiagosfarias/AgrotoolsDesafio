@@ -1,15 +1,21 @@
 const QuestionarioController = require('../controllers/questionarioController')
-
+const Usuario = require('./usuario')
 
 class Questionario {
 
-    constructor(titulo, user, localidade){
-        this.titulo = titulo
+    constructor(user, titulo, perguntas){
         this.user = user
-        this.localidade = localidade
+        this.titulo = titulo
+        this.perguntas = perguntas
+        this.respostas = []
     }
 
+    
 
+
+
+
+    
     
 }
 

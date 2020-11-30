@@ -100,8 +100,8 @@ a .nav-link{
 .flag {
     margin-left: 1.5rem;
     border-style: solid;
-    border-color: green;
-    background-color: green;
+    border-color: rgb(221, 220, 132);
+    background-color: rgb(221, 220, 132);
     width: 1.5rem;
 }
 

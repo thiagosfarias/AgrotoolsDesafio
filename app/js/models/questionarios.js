@@ -1,3 +1,6 @@
+const Questionario = require("./questionario");
+
+
 class Questionarios{
 
     constructor(){
@@ -6,7 +9,10 @@ class Questionarios{
 
     adiciona(questionario){
         this.questionarios.push(questionario)
-        
+    }
+
+    paraArray() {
+        return [].concat(this.questionarios);
     }
 
 

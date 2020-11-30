@@ -9,6 +9,8 @@
     <script src="assets/jquery-2.1.3.min.js"></script>
 
 
+
+
     <title>Agrotools</title>
 </head>
 <body>
@@ -20,7 +22,9 @@
 </header>
 
 
-<div id="mensagemView"></div>
+
+<div id="mesageView" class="alert"></div>
+
 <div id="body-content" class="d-flex flex-row justify-content-between">
 
   <div id="dashboard" class="d-flex flex-column mt-4">
@@ -58,6 +62,8 @@
       </li>
     </ul>
   </div>
+
+
   
 
   <div id="option_field" class="ml-5 mt-4">
@@ -104,8 +110,8 @@
 <script src="./assets/system.js"></script>
     <script>
         System.defaultJSExtensions = true;
-        System.import('js/app.js').catch(err => console.error(err));
+        System.import('js/controllers/optionsController.js').catch(err => console.error(err));
         System.import('js/index.js').catch(err => console.error(err));
-    </script>
+</script>
 
 </html>
