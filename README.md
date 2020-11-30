@@ -10,7 +10,7 @@ This application is the AgroTools challenge for a full-stack dev position.
 * Also the plataform Figma to idealize the page prototypes
 * A [MVC architecture] was followed, in which the model defines the entities in the [models], [controllers], [views] and [services]
 
-## Building
+## Building and Running
 
 * First of all, clone this repository or download it
 * Install the dependencies from the package.json using npm install
