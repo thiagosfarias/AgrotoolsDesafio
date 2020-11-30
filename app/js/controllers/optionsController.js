@@ -30,17 +30,9 @@ $(document).ready(()=>{
 
 
 $(document).on('submit', '#quest-form', () => {
-  console.log("SUBMETI?")
   questionarioControl.submterForm()
 })
 
-$(document).ready(()=>{
-  $(document).on('click', '#myFiles-quest', () => {
-    let questionariosGET = requestService.getQuestionarios()
-    console.log(questionariosGET)
-    questionarioControl.listaQuestionarios(questionariosGET)
-  })
-})
 
 $(document).ready(()=>{
   $(document).on('click', '#viewQuestionario', (e) => {
@@ -71,12 +63,12 @@ $(document).on('click', '#btn-geolocalizacao', (e) => {
 
 $(document).on('click', '#btn-pergunta', (e) =>{
       e.preventDefault()
-      console.log(e)
       $('div[name="nova-pergunta[]"]').append(`
       <h5>Pergunta</h5>
       <input name="perguntas[]" type="pergunta" class="form-control placeholder="digite sua pergunta..." required>
       `)
 })
+
 
 
 

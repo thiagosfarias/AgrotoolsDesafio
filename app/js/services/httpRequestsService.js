@@ -7,7 +7,7 @@ class HttpRequestsService {
 
     async getQuestionarios(){
         $.get(link+'questionarios').done((res, status) => {
-            return res
+            console.log(res, status)
         }).fail(err => console.error(err))
     }
 
@@ -24,7 +24,7 @@ class HttpRequestsService {
             url: link+'questionario/'+questionario.id,
             type : 'PATCH',
             dataType : 'json',
-            data: questionario.respostas,
+            data: questionario,
             crossDomain: true
         }).done((res, status) => {
             console.log(res, status)

@@ -1,9 +1,7 @@
-class MesageView {
+class MensagemView {
 
 
     exibirMensagem(mensagem, tipo){
-        event.preventDefault()
-        console.log('Mandei')
         return $('#mesageView').html(`
             <h5 class="alert ${tipo}">${mensagem}</h5>
         `)
@@ -15,4 +13,4 @@ class MesageView {
     }
 }
 
-module.exports = MesageView
+module.exports = MensagemView

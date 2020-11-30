@@ -1,4 +1,4 @@
-const MesageView = require("./mesageView");
+const MensagemView = require("./mensagemView");
 
 
 
@@ -6,7 +6,7 @@ const MesageView = require("./mesageView");
 class QuestionarioView {
  
     constructor(){
-        this.mesageView = new MesageView()
+        this.mensagemView = new MensagemView()
 
         
     }
@@ -152,7 +152,7 @@ class QuestionarioView {
             <h5>Data</h5>
             <input type="date" class="form-control" id="date-input"   required>
         </div>
-        ${questionario.perguntas.enunciados.map( (enunciado, index) => 
+        ${questionario.perguntas.enunciados.map( (enunciado) => 
             
             `
     
@@ -176,7 +176,7 @@ class QuestionarioView {
 
   listaQuestionarios(questionarios){
         if(questionarios.questionarios == 0){
-            this.mesageView.exibirMensagem('Não há questionarios registrados', 'alert-warning')
+            this.mensagemView.exibirMensagem('Não há questionarios registrados', 'alert-warning')
         }
 
         return $('#option_selected').html( `

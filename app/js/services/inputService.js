@@ -16,18 +16,14 @@ class InputService {
     }
     
     inputPerguntas(){
-        event.preventDefault()
         this.perguntas = new Perguntas()
         $('input[name="perguntas[]"]').map((index, pergunta) => {
-            console.log(typeof pergunta)
             this.perguntas.enunciados.push($(pergunta).val())
         })
-        console.log(this.perguntas)
         return this.perguntas
     }
     
     inputRespostas(){
-        event.preventDefault()
         this.user = this.inputUser()
         this.respostas = new Respostas(this.user)
         $('input[name="respostas[]"]').map((index, resposta) => {
