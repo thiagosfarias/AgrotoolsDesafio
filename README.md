@@ -14,4 +14,4 @@ This application is the AgroTools challenge for a full-stack dev position.
 
 * First of all, clone this repository ou download it
 * Install the dependencies in the package.json using npm install
-* to run the application use the command: 'npm run server'
+* To run the application use the command: 'npm run server'
