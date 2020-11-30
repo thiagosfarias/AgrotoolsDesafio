@@ -1,6 +1,5 @@
 const MesageView = require("./mesageView");
-const LocalizacaoService = require("../services/localizacaoService")
-const QuestionariosController = require('../controllers/questionarioController')
+
 
 
 
@@ -8,7 +7,6 @@ class QuestionarioView {
  
     constructor(){
         this.mesageView = new MesageView()
-        this.localizacaoService = new LocalizacaoService()
 
         
     }
@@ -25,19 +23,12 @@ class QuestionarioView {
             <input type="tittle" class="form-control"  id="tittle-input" placeholder="digite o titulo..."  required>
         </div>
         <div class="form-group">
-            <h5>User</h5>
+            <h5>Usuario</h5>
             <input type="user" class="form-control" id="user-input"placeholder="digite seu user..."  required>
         </div>
         <div class="form-group">
             <h5>Geolocalização</h5>
             <button id="btn-geolocalizacao" class="btn btn-primary ml-3" type="button" required>Fornecer</button>
-            ${
-
-                $(document).on('click', '#btn-geolocalizacao', () => {
-                   this.localizacaoService.retornageolocalizacao()
-                })
-
-            }
             <p id="latitude">
             </p>
             <p id="longitude">
@@ -53,15 +44,6 @@ class QuestionarioView {
             <h5>Pergunta</h5>
             <input name="perguntas[]" type="pergunta" class="form-control placeholder="digite sua pergunta..." required>
         </div>
-        ${$(document).ready(() =>{
-            $(document).on('click', '#btn-pergunta', (e) =>{
-                e.preventDefault()
-                $('div[name="nova-pergunta[]"]').append(`
-                <h5>Pergunta</h5>
-                <input name="perguntas[]" type="pergunta" class="form-control placeholder="digite sua pergunta..." required>
-                `)
-            })
-        })}
         <div class="form-group" name="nova-pergunta[]"></div>
 
         <button id="btn-submit" class="btn btn-primary mr-3" type="submit">Criar</button>
@@ -74,63 +56,62 @@ class QuestionarioView {
     )
   }
 
-  exibirQuestionarioRespondido(questionario){
+  exibirQuestionarioRespondido(questionario, respostas){
       return $('#option_selected').html(`
     
 
-      <form class="d-flex flex-column">
-      <div class="form-group flex-">
-        <h4>Usuário:<h4/>
-        <h5>${questionario.user.user}</h5>
-    </div>
-    <div class="form-group flex-">
-    <h4>Titulo:<h4/>
-    <h5>${questionario.titulo}</h5>
-  </div>
-    <div class="form-group">
-      <h4>(Latitude e Longitude)<h4/>
-      <h2>${questionario.user.latitude}</h2><br>
-      <h2>${questionario.user.longitude}</h2>
-    </div>
-    <div class="form-group">
-        <h4>Data de cadastro<h4/>
-        <h5>${questionario.user.data}</h5>
-    </div>
-      ${questionario.perguntas.enunciados.map( (enunciado, index) => 
-          
-          `
-  
-      <div class="form-group" name="perguntas[]">
-          <h5 class="enunciado">n. ${index} - ${enunciado}</h5>
-          `
-        
-      )}
-
-      <div id="info-resposta">
-
-      ${questionario.respostas.map((resposta, index) => 
-        `
-        <div class="info-usuario">
-            <p>Usuario: ${resposta.user.user}</p>
-            <p>Data: ${resposta.user.data}</p>
-            <p>Latitude:${resposta.user.latitude}</p>
-            <p>Longitude:${resposta.user.longitude}</p>
+      <div class="card d-flex">
+        <div class="card-header d-flex ml-2">
+            <p class="questionario-info flex-column">Usuário: ${questionario.user.user}<p/>
+            <p class="questionario-info flex-column">Titulo: ${questionario.titulo}<p>
+            <p class="questionario-info flex-column">Latitude:${questionario.user.latitude}</p>
+            <p class="questionario-info flex-column">Longitude:${questionario.user.longitude}</p>
+            <p class="questionario-info flex-column">Data de cadastro:${questionario.user.data}</p>
         </div>
-        ${
-            respostas.map((textoResposta, index) => 
+        <div class="card-body">
+        <ul class="list-group list-group-flush">
+        ${questionario.perguntas.enunciados.map( (enunciado, index) => 
+            
             `
-            <div class="lista-respostas" name="respostas[]">
-            <h5 class="resposta">n. ${index} - ${textoResposta}</h5>
+    
+            <li class="list-group-item">n.${index}) ${enunciado}</li>
             `
-            ).join('')
-        }
+            
+        )}
+        </ul>
+        
+        </div> 
+       </div><br>
+       <h4 class="ml-2">Respostas</h4><br>     
+      ${respostas.map((resposta) => 
+        `
+        <div class="card info-usuario d-flex">
+            <div class="card-header d-flex ml-2">
+            
+            <p class="questionario-info flex-column">Usuario: ${resposta.user.user}</p>
+            <p class="questionario-info flex-column">Data: ${resposta.user.data}</p>
+            <p class="questionario-info flex-column">Latitude:${resposta.user.latitude}</p>
+            <p class="questionario-info flex-column">Longitude:${resposta.user.longitude}</p>
+            </>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+            ${
+                resposta.respostas.map((textoResposta, index) => 
+                `
+                <li class="list-group-item">n.${index}) ${textoResposta}</li>
+                `
+                ).join('')
+            }
+            </ul>
+        </div>
+
 
         `
       )}
       </div>
-
-
-    </form>
+    
+      </div>
   
   `)
   }
@@ -142,41 +123,25 @@ class QuestionarioView {
     return $('#option_selected').html(`
     
 
-        <form class="d-flex flex-column">
-        <div class="form-group flex-">
-          <h4>Usuário:<h4/>
-          <h5>${questionario.user.user}</h5>
-      </div>
-      <div class="form-group flex-">
-      <h4>Titulo:<h4/>
-      <h5>${questionario.titulo}</h5>
-    </div>
-      <div class="form-group">
-        <h4>(Latitude e Longitude)<h4/>
-        <h2>${questionario.user.latitude}</h2><br>
-        <h2>${questionario.user.longitude}</h2>
-      </div>
-      <div class="form-group">
-          <h4>Data de cadastro<h4/>
-          <h5>${questionario.user.data}</h5>
-      </div>
-      <div></div>
+        <div class="card d-flex flex-row">
+        <div class="card-header d-flex ml-2">
+            <p class="questionario-info flex-row">Usuário: ${questionario.user.user}<p/>
+            <p class="questionario-info flex-row">Titulo: ${questionario.titulo}<p>
+            <p class="questionario-info flex-row">Latitude:${questionario.user.latitude}</p>
+            <p class="questionario-info flex-row">Longitude:${questionario.user.longitude}</p>
+            <p class="questionario-info flex-row">Data de cadastro:${questionario.user.data}</p>
+        </div>
+        </div><br>
+
+        <h3>Responder Questionário</h3><br>
         <form id="resposta-form">
         <div class="form-group">
-            <h5>User</h5>
+            <h5>Usuario</h5>
             <input type="user" class="form-control" id="user-input"placeholder="digite seu user..."  required>
         </div>
         <div class="form-group">
             <h5>Geolocalização</h5>
             <button id="btn-geolocalizacao" class="btn btn-primary ml-3" type="button" required>Fornecer</button>
-            ${
-
-                $(document).on('click', '#btn-geolocalizacao', (e) => {
-                    e.preventDefault()
-                   this.localizacaoService.retornageolocalizacao()
-                })
-
-            }
             <p id="latitude">
             </p>
             <p id="longitude">
@@ -193,15 +158,14 @@ class QuestionarioView {
     
         <div class="form-group" name="respostas[]">
             <h5 class="enunciado">${enunciado}</h5>
-            <input type="text" name="respostas[]" placeholder="digite sua resposta aqui..."></input>
+            <input class="form-control" type="text" name="respostas[]" placeholder="digite sua resposta aqui..."></input>
 
 
             `
             
         )}
-
+            <br>
         <a class="btn btn-primary" id="responderQuestionario"><p id="${questionario.id}">Responder</p></a>
-        </form>
 
       </form>
     
@@ -211,34 +175,32 @@ class QuestionarioView {
 
 
   listaQuestionarios(questionarios){
-
-
-        if(questionarios.paraArray() == 0){
-            this.mesageView.exibirMensagem('Não há questionários cadastrados', 'alert-warning')
-        } 
+        if(questionarios.questionarios == 0){
+            this.mesageView.exibirMensagem('Não há questionarios registrados', 'alert-warning')
+        }
 
         return $('#option_selected').html( `
             
     
-             ${questionarios.questionarios.map( (questionario, index) =>  
+             ${questionarios.questionarios.map( (questionario) =>  
 
                  `
                  
 
-         <div id="questionarios-box">
-         <div id="body-box" class="body-box d-flex flex-row">
-             <h5 clas="flex-column ml-2" name=titulo[]>${questionario.titulo}</h5>
-             <h6  class="flex-row ml-2" name=usuario[]>${questionario.user.user}</h6>
-             <h6  class="flex-row ml-2" name="id">${questionario.id}</h6>
 
+         <div id="body-box" class="card">
+             <div class="card-header">
+                <h5 clas="flex-column ml-2" name=titulo[]>Titulo: ${questionario.titulo}</h5>
+                <h6  class="flex-column ml-2" name=usuario[]>Usuario: ${questionario.user.user}</h6>
+                <h6  class="flex-column ml-2" name="id">ID: ${questionario.id}</h6>
+            </div>
+            <div class="card-body">
+                <a class="expand_questionario flex-column ml-2"  href="#" name="questionario-${questionario.id}" id="viewQuestionario">
+                    <img class="box-icon" id="${questionario.id}" src="./assets/img/next_icon.png" alt="">
+                </a>
+            </div>
+        </div>
 
-         <div class="flag">
-         </div>
-
-         <a class="expand_questionario flex-row ml-2"  href="#" name="questionario-${questionario.id}" id="viewQuestionario">
-             <img class="box-icon" id="${questionario.id}" src="./assets/img/next_icon.png" alt="">
-         </a>
-         </div>
              
              
      
@@ -257,22 +219,21 @@ class QuestionarioView {
              ${questionarios.questionarios.map( (questionario) =>  
 
                  `
-                 
 
-         <div id="questionarios-box">
-         <div id="body-box" class="body-box d-flex flex-row">
-             <h5 clas="flex-column ml-2" name=titulo[]>${questionario.titulo}</h5>
-             <h6  class="flex-row ml-2" name=usuario[]>${questionario.user.user}</h6>
-             <h6  class="flex-row ml-2" name="id">${questionario.id}</h6>
+         <div id="body-box" class="card">
+             <div class="card-header">
+                <h5 clas="flex-column ml-2" name=titulo[]>${questionario.titulo}</h5>
+                <h6  class="flex-column ml-2" name=usuario[]>${questionario.user.user}</h6>
+                <h6  class="flex-column ml-2" name="id">${questionario.id}</h6>
+             </div>
+             <div class="card-body">
+                <a class="expand_questionario flex-row ml-2"  href="#" name="questionario-${questionario.id}" id="viewQuestionarioRespondido">
+                    <img class="box-icon" id="${questionario.id}" src="./assets/img/next_icon.png" alt="">
+                </a>
+             </div>
+        </div>
 
 
-         <div class="flag">
-         </div>
-
-         <a class="expand_questionario flex-row ml-2"  href="#" name="questionario-${questionario.id}" id="viewQuestionarioRespondido">
-             <img class="box-icon" id="${questionario.id}" src="./assets/img/next_icon.png" alt="">
-         </a>
-         </div>
              
              
      

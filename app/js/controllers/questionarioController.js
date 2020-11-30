@@ -100,7 +100,10 @@ class QuestionarioController {
     verQuestionarioRespondido(id){
         let questionario = this.buscaQuestionarioPor(id)
         console.log(questionario)
-        this.questionariosView.exibirQuestionarioRespondido(questionario)
+        let respostas = []
+        questionario.respostas.map(resposta => respostas.push(resposta))
+        console.log(respostas)
+        this.questionariosView.exibirQuestionarioRespondido(questionario, respostas)
         console.log("ver questionario respondido")
     
     }

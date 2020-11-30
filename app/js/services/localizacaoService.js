@@ -1,16 +1,20 @@
 class LocalizacaoService {
-    retornageolocalizacao(){
+    retornaGeolocalizacao(){
         navigator.geolocation.getCurrentPosition(this.exibirPosicao)
 
     }
 
     exibirPosicao(posicao){
         $('#latitude').html(`
-            ${posicao.coords.latitude}
+        <p>
+         ${posicao.coords.latitude}
+        </p>
         `)
 
         $('#longitude').html(`
+            <p>
             ${posicao.coords.longitude}
+            </p>
         `)
     }
     

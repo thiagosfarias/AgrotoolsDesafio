@@ -1,5 +1,9 @@
 const QuestionarioControl = require('./questionarioController');
 const questionarioControl = new QuestionarioControl();
+const LocalizacaoService = require('../services/localizacaoService');
+const localService = new LocalizacaoService();
+const HttpRequestsService = require('../services/httpRequestsService');
+const requestService = new HttpRequestsService();
 
 
 $(document).ready(()=>{
@@ -32,10 +36,9 @@ $(document).on('submit', '#quest-form', () => {
 
 $(document).ready(()=>{
   $(document).on('click', '#myFiles-quest', () => {
-    let questionariosGET = questionarioControl.listaQuestionariosHttp()
-    questionariosGET.forEach((questionarioGET) => {
-      questionarioControl.verQuestionario(questionarioGET)
-    })
+    let questionariosGET = requestService.getQuestionarios()
+    console.log(questionariosGET)
+    questionarioControl.listaQuestionarios(questionariosGET)
   })
 })
 
@@ -56,10 +59,25 @@ $(document).ready(()=>{
 $(document).ready((e) => {
   $(document).on('click', '#responderQuestionario', (e) =>{
     e.preventDefault()
-    console.log(e.target.id)
-    let id = e.target.id
-    questionarioControl.responderQuestionario(id)
+    questionarioControl.responderQuestionario(e.target.id)
   })})
+
+
+
+$(document).on('click', '#btn-geolocalizacao', (e) => {
+   e.preventDefault()
+   localService.retornaGeolocalizacao()
+})
+
+$(document).on('click', '#btn-pergunta', (e) =>{
+      e.preventDefault()
+      console.log(e)
+      $('div[name="nova-pergunta[]"]').append(`
+      <h5>Pergunta</h5>
+      <input name="perguntas[]" type="pergunta" class="form-control placeholder="digite sua pergunta..." required>
+      `)
+})
+
 
 
 

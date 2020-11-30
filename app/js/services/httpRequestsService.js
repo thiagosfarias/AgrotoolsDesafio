@@ -1,12 +1,14 @@
 let link = 'http://localhost:1000/'
 
-class HttpRequests {
+class HttpRequestsService {
     constructor(){
         this.res
     }
 
     async getQuestionarios(){
-        return $.get(link+'questionarios')
+        $.get(link+'questionarios').done((res, status) => {
+            return res
+        }).fail(err => console.error(err))
     }
 
     async postQuestionario(questionario){
@@ -30,4 +32,4 @@ class HttpRequests {
     }
 }
 
-module.exports = HttpRequests
+module.exports = HttpRequestsService
